@@ -74,6 +74,25 @@ export class BaseCtl implements OnInit {
             }
         });
     }
+
+     search() {
+        var _self = this;
+        this.serviceLocator.httpService.post(_self.api.search + "/" + _self.form.pageNo, _self.form.searchParams, function (res: any) {
+            _self.form.message = '';
+            _self.form.list = [];
+            if (res.success) {
+                _self.form.error = false;
+                _self.form.list = res.result.data;
+                _self.form.nextListSize = res.result.nextListSize;
+            } else {
+                _self.form.error = true;
+                _self.form.message = res.result.message;
+            }
+        });
+    }
+      forward(page: any) {
+        this.serviceLocator.forward(page);
+    }
     reset() {
         location.reload();
     }

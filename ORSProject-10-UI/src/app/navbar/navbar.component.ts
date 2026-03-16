@@ -5,7 +5,7 @@ import { ServiceLocatorService } from '../service-locator.service';
 
 @Component({
   selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
+  templateUrl: './navbar.component.html'
 })
 export class NavbarComponent {
 
