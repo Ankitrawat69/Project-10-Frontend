@@ -8,7 +8,7 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class BaseCtl implements OnInit {
 
-      public form: any = {
+    public form: any = {
         error: false, //error 
         inputerror: {}, // form input error messages
         message: null, //error or success message
@@ -41,10 +41,17 @@ export class BaseCtl implements OnInit {
     constructor(public endpoint: String, public serviceLocator: ServiceLocatorService, public route: ActivatedRoute) {
         var _self = this;
         _self.initApi(endpoint);
-  }
+
+        serviceLocator.getPathVariable(route, function (params: any) {
+            _self.form.data.id = params["id"];
+        })
+    }
 
     ngOnInit(): void {
         this.preload();
+        if (this.form.data.id && this.form.data.id > 0) {
+            this.display();
+        }
     }
 
     preload() {
@@ -52,11 +59,25 @@ export class BaseCtl implements OnInit {
         this.serviceLocator.httpService.get(_self.api.preload, function (res: any) {
             if (res.success) {
                 _self.form.preload = res.result;
+            } else {
+                _self.form.error = true;
+                _self.form.message = res.result.message;
             }
         });
     }
 
-    
+    display() {
+        var _self = this;
+        this.serviceLocator.httpService.get(_self.api.get + "/" + _self.form.data.id, function (res: any) {
+            if (res.success) {
+                _self.form.data = res.result.data;
+            } else {
+                _self.form.error = true;
+                _self.form.message = res.result.message;
+            }
+        });
+    }
+
     submit() {
         var _self = this;
         this.serviceLocator.httpService.post(this.api.save, this.form.data, function (res: any) {
@@ -75,7 +96,7 @@ export class BaseCtl implements OnInit {
         });
     }
 
-     search() {
+    search() {
         var _self = this;
         this.serviceLocator.httpService.post(_self.api.search + "/" + _self.form.pageNo, _self.form.searchParams, function (res: any) {
             _self.form.message = '';
@@ -90,9 +111,28 @@ export class BaseCtl implements OnInit {
             }
         });
     }
-      forward(page: any) {
+
+    deleteMany(id: any) {
+        var _self = this;
+        this.serviceLocator.httpService.post(_self.api.deleteMany + "/" + id, this.form.searchParams, function (res: any) {
+            _self.form.message = '';
+            _self.form.list = [];
+            if (res.success) {
+                _self.form.error = false;
+                _self.form.message = res.result.message;
+                _self.form.list = res.result.data;
+                _self.form.nextListSize = res.result.nextListSize;
+            } else {
+                _self.form.error = true;
+                _self.form.message = res.result.message;
+            }
+        });
+    }
+
+    forward(page: any) {
         this.serviceLocator.forward(page);
     }
+
     reset() {
         location.reload();
     }
