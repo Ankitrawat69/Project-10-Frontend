@@ -1,43 +1,30 @@
 import { Injectable } from '@angular/core';
 import { HttpServiceService } from './http-service.service';
-import { Router, ActivatedRoute } from '@angular/router';
 import { EndpointServiceService } from './endpoint-service.service';
-
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServiceLocatorService {
 
-  httpService;
-  router;
-  endpoints;
+  httpService: any = null;
+  router: any = null;
+  endpoints: any = null;
 
   constructor(private hs: HttpServiceService, private r: Router, private ep: EndpointServiceService) {
-    console.log("in service locator")
     this.httpService = hs;
     this.router = r;
     this.endpoints = ep;
   }
 
-  /**
-   * get path variable from url
-   * 
-   * @param route 
-   * @param callback 
-   */
-  getPathVariable(route: ActivatedRoute, callback : any) {
+  getPathVariable(route: ActivatedRoute, callback: any) {
     route.params.subscribe(params => {
       callback(params)
     });
   }
 
-  /**
-   * Forward to page 
-   * 
-   * @param page 
-   */
-  forward(page : any) {
+  forward(page: any) {
     this.router.navigateByUrl(page);
   }
 }
