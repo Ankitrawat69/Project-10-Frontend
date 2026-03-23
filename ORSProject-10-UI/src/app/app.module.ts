@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule , HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpServiceService } from './http-service.service';
 import { EndpointServiceService } from './endpoint-service.service';
 import { ServiceLocatorService } from './service-locator.service';
@@ -37,6 +37,7 @@ import { ChangepasswordComponent } from './user/changepassword.component';
 import { ForgotpasswordComponent } from './login/forgotpassword.component';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { AuthServiceService } from './auth.service';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -87,9 +88,13 @@ export function HttpLoaderFactory(http: HttpClient) {
     FormsModule
   ],
   providers: [
+     {
+      provide: HTTP_INTERCEPTORS, useClass: AuthServiceService, multi: true
+    },
     HttpServiceService,
     EndpointServiceService,
-    ServiceLocatorService
+    ServiceLocatorService,
+    AuthServiceService
   ],
   bootstrap: [AppComponent]
 })
