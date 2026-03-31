@@ -1,71 +1,147 @@
+<div class="container-fluid" style="background-image: url('assets/img/list2.jpg');
+     background-size: cover;
+     background-attachment: fixed;
+     min-height: 100vh;
+     padding-top: 85px;">
 
-<div align="center">
-    <h1 align="center" style="margin-bottom: 5px; color: navy;">Student List</h1>
+    <!-- TITLE -->
+    <h1 class="text-center text-dark font-weight-bold pt-3">
+        Student List
+    </h1>
 
-    <div style="height: 20px; margin-bottom: 10px; text-align: center;">
-        <h3 style="margin: 0; color: green;" *ngIf="!form.error && form.message">{{ form.message }}</h3>
-        <h3 style="margin: 0; color: red;" *ngIf="form.error && form.message">{{ form.message }}</h3>
+    <!-- MESSAGE -->
+    <div class="row">
+        <div class="col-md-4"></div>
+
+        <div class="col-md-4 text-center">
+            <div *ngIf="!form.error && form.message" class="alert alert-success alert-dismissible"
+                style="background-color:#80ff80;">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ form.message }}
+            </div>
+
+            <div *ngIf="form.error && form.message" class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {{ form.message }}
+            </div>
+        </div>
+
+        <div class="col-md-4"></div>
     </div>
 
-    <div *ngIf="form.list.length > 0">
-        <table style="width: 100%">
-            <tr>
-                <td align="center">
-                    <label><b>Student Name: </b></label>
-                    <input type="text" name="name" [(ngModel)]="form.searchParams.firstName" placeholder="Enter Student Name">&nbsp;
+    <!-- SEARCH -->
+    <div *ngIf="form.list.length > 0" class="row mt-3 justify-content-center align-items-center">
 
-                    <label><b>College Name: </b></label>
-                    <input type="text" name="name" [(ngModel)]="form.searchParams.collegeName" placeholder="Enter College Name">&nbsp;
+        <div class="col-md-3">
+            <input type="text" class="form-control" name="name" [(ngModel)]="form.searchParams.firstName"
+                placeholder="Enter Student Name">
+        </div>
 
-                    <button (click)="search()">search</button>&nbsp;
-                    <button (click)="reset()">reset</button>
-                </td>
-            </tr>
-        </table>
+        <div class="col-md-3">
+            <input type="text" class="form-control" name="name" [(ngModel)]="form.searchParams.collegeName"
+                placeholder="Enter College Name">
+        </div>
 
-        <br>
+        <div class="col-md-2">
+            <button (click)="search()" class="btn btn-primary w-100">
+                Search
+            </button>
+        </div>
 
-        <table border="1" style="width: 100%; border: groove;">
-            <tr style="background-color: #e1e6f1e3;">
-                <th><input type="checkbox" [(ngModel)]="isMasterSel" (change)="checkUncheckAll($event)" /></th>
-                <th>S.No</th>
-                <th>Enroll No</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Date of Birth</th>
-                <th>Phone</th>
-                <th>Email ID</th>
-                <th>College</th>
-                <th>Edit</th>
-            </tr>
+        <div class="col-md-2">
+            <button (click)="reset()" class="btn btn-dark w-100">
+                Reset
+            </button>
+        </div>
 
-            <tr align="center" *ngFor="let m of form.list; let i = index">
-                <td><input type="checkbox" #checkboxes (change)="checklistUpdate()" [id]="m.id" [value]="isMasterSel"></td>
-                <td>{{(form.pageNo*5)+i+ 1}}</td>
-                <td>{{m.enrolNo}}</td>
-                <td>{{m.firstName}}</td>
-                <td>{{m.lastName}}</td>
-                <td>{{m.dob | date : 'dd-MM-yyyy'}}</td>
-                <td>{{m.phoneNo}}</td>
-                <td>{{m.email}}</td>
-                <td>{{m.collegeName}}</td>
-                <td><a (click)="forward( '/student/' +  m.id)" style="cursor: pointer;">Edit</a></td>
-            </tr>
-        </table>
-
-        <br>
-
-        <table style="width: 100%">
-            <tr>
-                <td style="width: 25%"><button (click)="previous()" [disabled]="form.pageNo == 0">previous</button></td>
-                <td align="center" style="width: 25%"><button (click)="forward('/student')">new</button></td>
-                <td align="center" style="width: 25%"><button (click)="deleteMany()">delete</button></td>
-                <td style="width: 25%" align="right"><button (click)="next()" [disabled]="form.nextListSize == 0">next</button></td>
-            </tr>
-        </table>
     </div>
 
-    <br>
+    <!-- TABLE -->
+    <div *ngIf="form.list.length > 0" class="table-responsive mt-4">
 
-    <div *ngIf="form.list.length == 0"><button (click)="reset()">Back</button></div>
+        <table class="table table-bordered table-dark table-hover text-center">
+
+            <thead>
+                <tr style="background-color: #8C8C8C;">
+                    <th>
+                        <input type="checkbox" [(ngModel)]="isMasterSel" (change)="checkUncheckAll($event)">
+                    </th>
+                    <th>S.No</th>
+                    <th>Enroll No</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Date of Birth</th>
+                    <th>Phone</th>
+                    <th>Email ID</th>
+                    <th>College</th>
+                    <th>Edit</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr *ngFor="let m of form.list; let i = index">
+
+                    <td>
+                        <input type="checkbox" #checkboxes (change)="checklistUpdate()" [id]="m.id"
+                            [value]="isMasterSel">
+                    </td>
+
+                    <td>{{(form.pageNo*5)+i+ 1}}</td>
+                    <td>{{m.enrolNo}}</td>
+                    <td>{{m.firstName}}</td>
+                    <td>{{m.lastName}}</td>
+                    <td>{{m.dob | date : 'dd-MM-yyyy'}}</td>
+                    <td>{{m.phoneNo}}</td>
+                    <td>{{m.email}}</td>
+                    <td>{{m.collegeName}}</td>
+
+                    <td>
+                        <button class="btn btn-sm btn-primary" (click)="forward('/student/' +  m.id)">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- ACTIONS -->
+    <div *ngIf="form.list.length > 0" class="row mt-3 align-items-center">
+
+        <div class="col-md-4">
+            <button (click)="previous()" [disabled]="form.pageNo == 0" class="btn btn-secondary">
+                Previous
+            </button>
+        </div>
+
+        <div class="col-md-4 text-center">
+            <button (click)="forward('/student')" class="btn btn-primary mr-2">
+                New
+            </button>
+
+            <button (click)="deleteMany()" class="btn btn-danger">
+                Delete
+            </button>
+        </div>
+
+        <div class="col-md-4 text-right">
+            <button (click)="next()" [disabled]="form.nextListSize == 0" class="btn btn-secondary">
+                Next
+            </button>
+        </div>
+
+    </div>
+
+    <!-- NO DATA -->
+    <div *ngIf="form.list.length == 0" class="text-center mt-4">
+        <button (click)="reset()" class="btn btn-primary">
+            Back
+        </button>
+    </div>
+
 </div>

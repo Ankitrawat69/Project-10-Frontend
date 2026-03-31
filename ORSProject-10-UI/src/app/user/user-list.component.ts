@@ -5,12 +5,12 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
-  templateUrl: './user-list.component.html'
-})
-export class UserListComponent extends BaseListCtl {
+  templateUrl: './user-list.component.html',
 
+})
+export class UserListComponent extends BaseListCtl{
   constructor(locator: ServiceLocatorService, route: ActivatedRoute) {
-    super(locator.endpoints.USER, locator, route);
-  }
+      super(locator.endpoints.USER, locator, route);
+    }
 
 }

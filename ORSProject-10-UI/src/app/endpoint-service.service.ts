@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
+
 export class EndpointServiceService {
 
-  constructor() { 
-    console.log('in EndpointServiceService ts');
-  }
+  constructor() {
+    console.log('in EndpointServiceService ts')
+   }
 
-   public SERVER_URL = "http://localhost:8081";
+  public SERVER_URL = "http://localhost:8080";
   public MESSAGE = this.SERVER_URL + "/Message";
   public USER = this.SERVER_URL + "/User";
   public ROLE = this.SERVER_URL + "/Role";
@@ -21,5 +22,6 @@ export class EndpointServiceService {
   public COURSE = this.SERVER_URL + "/Course";
   public TIMETABLE = this.SERVER_URL+ "/TimeTable";
   public JASPERREPORT = this.SERVER_URL+ "/Jasper";
+  public CATERING = this.SERVER_URL+ "/Catering";
  
 }

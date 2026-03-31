@@ -59,7 +59,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
-            "production": {
+            "production": { 
               "browserTarget": "ORSProject-10-UI:build:production"
             },
             "development": {
@@ -96,6 +96,6 @@
     }
   },
   "cli": {
-    "analytics": "9ce7e25f-a846-4757-ba02-233e16ec82bf"
+    "analytics": "ce2c1d73-7da4-4355-ab32-234dc4ade32e"
   }
 }

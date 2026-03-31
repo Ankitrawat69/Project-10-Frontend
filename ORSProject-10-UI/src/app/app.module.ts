@@ -1,30 +1,31 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-
-import { HttpClient, HttpClientModule , HTTP_INTERCEPTORS } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  HttpClientModule,
+} from '@angular/common/http';
 import { HttpServiceService } from './http-service.service';
 import { EndpointServiceService } from './endpoint-service.service';
-import { ServiceLocatorService } from './service-locator.service';
+import { AuthService } from './auth.service';
 import { FormsModule } from '@angular/forms';
-import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './login/signup.component';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { RoleComponent } from './role/role.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserComponent } from './user/user.component';
-import { UserListComponent } from './user/user-list.component';
-import { RoleComponent } from './role/role.component';
+import { CollegeComponent } from './college/college.component';
 import { StudentComponent } from './student/student.component';
-import { FacultyComponent } from './faculty/faculty.component';
+import { MarksheetComponent } from './marksheet/marksheet.component';
 import { CourseComponent } from './course/course.component';
 import { SubjectComponent } from './subject/subject.component';
-import { MarksheetComponent } from './marksheet/marksheet.component';
-import { CollegeComponent } from './college/college.component';
 import { TimetableComponent } from './timetable/timetable.component';
-import { RoleListComponent } from './role/role-list.component';
 import { FooterComponent } from './footer/footer.component';
+import { FacultyComponent } from './faculty/faculty.component';
+import { RoleListComponent } from './role/role-list.component';
+import { UserListComponent } from './user/user-list.component';
 import { CollegeListComponent } from './college/college-list.component';
 import { StudentListComponent } from './student/student-list.component';
 import { MarksheetListComponent } from './marksheet/marksheet-list.component';
@@ -32,13 +33,17 @@ import { CourseListComponent } from './course/course-list.component';
 import { SubjectListComponent } from './subject/subject-list.component';
 import { TimetableListComponent } from './timetable/timetable-list.component';
 import { FacultyListComponent } from './faculty/faculty-list.component';
-import { MyprofileComponent } from './user/myprofile.component';
-import { ChangepasswordComponent } from './user/changepassword.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './login/signup.component';
 import { ForgotpasswordComponent } from './login/forgotpassword.component';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { AuthServiceService } from './auth.service';
-
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { ChangepasswordComponent } from './user/changepassword.component';
+import { MyprofileComponent } from './user/myprofile.component';
+import { MarksheetmeritlistComponent } from './marksheet/marksheetmeritlist.component';
+import { GetmarksheetComponent } from './marksheet/getmarksheet.component';
+import { CateringComponent } from './catering/catering.component';
+import { CateringlistComponent } from './catering/cateringlist.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -47,22 +52,20 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    SignupComponent,
+    RoleComponent,
     NavbarComponent,
     DashboardComponent,
     UserComponent,
-    UserListComponent,
-    RoleComponent,
+    CollegeComponent,
     StudentComponent,
-    FacultyComponent,
+    MarksheetComponent,
     CourseComponent,
     SubjectComponent,
-    MarksheetComponent,
-    CollegeComponent,
     TimetableComponent,
-    RoleListComponent,
     FooterComponent,
+    FacultyComponent,
+    RoleListComponent,
+    UserListComponent,
     CollegeListComponent,
     StudentListComponent,
     MarksheetListComponent,
@@ -70,9 +73,15 @@ export function HttpLoaderFactory(http: HttpClient) {
     SubjectListComponent,
     TimetableListComponent,
     FacultyListComponent,
-    MyprofileComponent,
+    LoginComponent,
+    SignupComponent,
+    ForgotpasswordComponent,
     ChangepasswordComponent,
-    ForgotpasswordComponent
+    MyprofileComponent,
+    MarksheetmeritlistComponent,
+    GetmarksheetComponent,
+    CateringComponent,
+    CateringlistComponent,
   ],
   imports: [
     BrowserModule,
@@ -82,20 +91,22 @@ export function HttpLoaderFactory(http: HttpClient) {
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
+        deps: [HttpClient],
+      },
     }),
-    FormsModule
+    FormsModule,
   ],
+
   providers: [
-     {
-      provide: HTTP_INTERCEPTORS, useClass: AuthServiceService, multi: true
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthService,
+      multi: true,
     },
-    HttpServiceService,
+
     EndpointServiceService,
-    ServiceLocatorService,
-    AuthServiceService
+    HttpServiceService,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

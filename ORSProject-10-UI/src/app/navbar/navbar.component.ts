@@ -10,7 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class NavbarComponent {
 
-  endpoint = "http://localhost:8081/Auth/";
+  endpoint = "http://localhost:8080/Auth/";
 
   form: any = {
     data: {}
@@ -32,6 +32,8 @@ export class NavbarComponent {
     if (check != "null" && check != null) {
       this.form.data.fname = localStorage.getItem("fname");
       this.form.data.role = localStorage.getItem("role");
+       this.form.data.roleId = Number(localStorage.getItem("roleId"));
+       this.form.data.userId = Number(localStorage.getItem("userId"));
       return true;
     } else {
       return false;
@@ -42,7 +44,7 @@ export class NavbarComponent {
     var _self = this;
     this.httpService.get(this.endpoint + 'logout', function (res: any) {
       localStorage.clear();
-      _self.router.navigateByUrl('login?message=user logout successfully')
+      _self.router.navigateByUrl('login?message=Logout successfully');
     });
   }
 
