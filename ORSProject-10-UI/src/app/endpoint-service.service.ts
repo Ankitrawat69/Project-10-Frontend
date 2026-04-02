@@ -23,5 +23,7 @@ export class EndpointServiceService {
   public TIMETABLE = this.SERVER_URL+ "/TimeTable";
   public JASPERREPORT = this.SERVER_URL+ "/Jasper";
   public CATERING = this.SERVER_URL+ "/Catering";
+  public REPORT = this.SERVER_URL+ "/Report";
+  public SUBSCRIPTION = this.SERVER_URL+ "/Subscription";
  
 }

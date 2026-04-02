@@ -28,6 +28,10 @@ import { MarksheetmeritlistComponent } from './marksheet/marksheetmeritlist.comp
 import { GetmarksheetComponent } from './marksheet/getmarksheet.component';
 import { CateringComponent } from './catering/catering.component';
 import { CateringlistComponent } from './catering/cateringlist.component';
+import { ReportComponent } from './report/report.component';
+import { ReportlistComponent } from './report/reportlist.component';
+import { SubscriptionComponent } from './subscription/subscription.component';
+import { SubscriptionlistComponent } from './subscription/subscriptionlist.component';
 
 const routes: Routes = [
   {
@@ -193,7 +197,31 @@ const routes: Routes = [
  {
    path: 'cateringlist',
    component: CateringlistComponent
- }
+ },
+ {
+   path: 'report',
+   component: ReportComponent
+ },
+  {
+    path: 'report/:id',
+    component: ReportComponent  
+  },
+  {
+    path: 'reportlist',
+    component: ReportlistComponent
+  },
+  {
+    path: 'subscription',
+    component: SubscriptionComponent
+  },
+  {
+    path: 'subscription/:id',
+    component: SubscriptionComponent  
+  },
+  {
+    path: 'subscriptionlist',
+    component: SubscriptionlistComponent
+  }
 ];
 
 @NgModule({

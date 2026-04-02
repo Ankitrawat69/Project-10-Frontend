@@ -44,6 +44,10 @@ import { MarksheetmeritlistComponent } from './marksheet/marksheetmeritlist.comp
 import { GetmarksheetComponent } from './marksheet/getmarksheet.component';
 import { CateringComponent } from './catering/catering.component';
 import { CateringlistComponent } from './catering/cateringlist.component';
+import { ReportComponent } from './report/report.component';
+import { ReportlistComponent } from './report/reportlist.component';
+import { SubscriptionComponent } from './subscription/subscription.component';
+import { SubscriptionlistComponent } from './subscription/subscriptionlist.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -82,6 +86,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     GetmarksheetComponent,
     CateringComponent,
     CateringlistComponent,
+    ReportComponent,
+    ReportlistComponent,
+    SubscriptionComponent,
+    SubscriptionlistComponent,
   ],
   imports: [
     BrowserModule,
